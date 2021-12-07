@@ -1,6 +1,6 @@
 class Product {
-  String? image, url, source;
-  Product({this.image,this.url,this.source});
+  String? image, url, source,label;
+  Product({this.image,this.url,this.source,this.label});
 }
 
 
