@@ -10,13 +10,16 @@ class Home extends StatelessWidget {
           elevation: 0,
       title: const Text('Cooking Recipe'),
     ),
-    body: Column(children:[
-      TextField(decoration: InputDecoration(
-        border : OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-        filled: true,
-        fillColor: Colors.green.withOpacity(0.2),
-      ),)
-    ])
+    body: Container(
+      margin: const EdgeInsets.symmetric(horizontal:20,vertical:20),
+      child: Column(children:[
+        TextField(decoration: InputDecoration(
+          border : OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+          filled: true,
+          fillColor: Colors.green.withOpacity(0.4),
+        ),)
+      ]),
+    )
     );
   }
 }
