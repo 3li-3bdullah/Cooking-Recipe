@@ -14,7 +14,9 @@ class Product {
 }
 
 class Model {
-  
+  List<Product>? hits;
+  Model({this.hits});
+  Model.fromJson(Map<String, dynamic> json) {
+    hits = (json["hits"] as List).map((e) => Product.fromJson(e)).toList();
+  }
 }
-
-
