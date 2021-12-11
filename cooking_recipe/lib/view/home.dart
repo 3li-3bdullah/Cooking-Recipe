@@ -1,54 +1,95 @@
+import 'package:cooking_recipe/model/product.dart';
 import 'package:cooking_recipe/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Home extends GetWidget<HomeViewModel> {
+  @override
+  final controller = Get.put(HomeViewModel());
+
   Home({Key? key}) : super(key: key);
-  HomeViewModel xcontroller = Get.put(HomeViewModel());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0,
-          title: const Text('Cooking Recipe'),
-        ),
-        body: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-            TextField(
-              decoration: InputDecoration(
-                border:
-                    OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-                filled: true,
-                fillColor: Colors.green.withOpacity(0.4),
+      appBar: AppBar(
+        elevation: 0,
+        title: const Text('Cooking Recipe'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  filled: true,
+                  fillColor: Colors.green.withOpacity(0.4),
+                ),
               ),
             ),
             const SizedBox(height: 20),
-            GetX<HomeViewModel>(builder: (controller) {
-              if (controller.isShow.value) {
-                return const Center(child: CircularProgressIndicator());
-              } else {
-                return GridView.builder(
-                    physics: const ScrollPhysics(),
-                    shrinkWrap: true,
-                    primary: true,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 5,
-                            mainAxisSpacing: 5),
-                    itemCount: controller.list.length,
-                    itemBuilder: (context, i) {
-                      final lengthData = controller.list[i];
-                      return Column(children: [
-                        Card(child: Image.network(lengthData.image.toString()))
-                      ]);
-                    });
-              }
-            })
-          ]),
-        ));
+            FutureBuilder(
+                future: controller.fetchData(),
+                builder: (context, AsyncSnapshot<Model> snapshot) {
+                  Model? data = snapshot.data;
+                  if (snapshot.hasData) {
+                    return GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10),
+                        itemCount: data!.hits!.length,
+                        itemBuilder: (context, i) {
+                          return InkWell(
+                            onTap: () {},
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      image: NetworkImage(
+                                          data.hits![i].image.toString()),
+                                      fit: BoxFit.fill)),
+                              child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(3),
+                                      height: 40,
+                                      color: Colors.black.withOpacity(0.5),
+                                      child: Center(
+                                        child: Text(
+                                          data.hits![i].label.toString(),
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(3),
+                                      height: 40,
+                                      color: Colors.black.withOpacity(0.5),
+                                      child: Center(
+                                        child: Text(
+                                          "Source : " +
+                                              data.hits![i].source.toString(),
+                                        ),
+                                      ),
+                                    )
+                                  ]),
+                            ),
+                          );
+                        });
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                }),
+          ],
+        ),
+      ),
+    );
   }
 }
