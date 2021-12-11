@@ -13,5 +13,8 @@ class Product {
   }
 }
 
+class Model {
+  
+}
 
 
