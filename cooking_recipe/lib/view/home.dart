@@ -20,7 +20,16 @@ class Home extends GetWidget<HomeViewModel> {
       body: SingleChildScrollView(
       child: Column(
         children: [
-         
+          Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: TextField(
+                decoration: InputDecoration(prefixIcon:  IconButton(icon: const Icon(Icons.search), onPressed:(){} ),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    filled: true,
+                    fillColor: Colors.orange.shade300),
+              )),
           FutureBuilder(
               future: controller.fetchData(),
               builder: (context, AsyncSnapshot<Model> snapshot) {
@@ -78,6 +87,6 @@ class Home extends GetWidget<HomeViewModel> {
                   return const Center(child: CircularProgressIndicator());
                 }
               }),
-    );
+         ])) );
   }
 }
