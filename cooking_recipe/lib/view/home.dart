@@ -11,6 +11,7 @@ class Home extends GetWidget<HomeViewModel> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
