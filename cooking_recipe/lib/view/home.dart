@@ -1,4 +1,5 @@
 import 'package:cooking_recipe/model/product.dart';
+import 'package:cooking_recipe/view/widgets/details_page.dart';
 import 'package:cooking_recipe/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,7 +47,9 @@ class Home extends GetWidget<HomeViewModel> {
                         itemCount: data!.hits!.length,
                         itemBuilder: (context, i) {
                           return InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              Get.to(()=> DetailsPage(url: controller.url) );
+                            },
                             child: Container(
                               decoration: BoxDecoration(
                                   image: DecorationImage(
