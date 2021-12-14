@@ -1,15 +1,15 @@
 import 'package:cooking_recipe/model/product.dart';
 import 'package:cooking_recipe/view/home_widgets/details_page.dart';
-import 'package:cooking_recipe/view/home_widgets/search_page.dart';
+import 'package:cooking_recipe/view/search_page.dart';
 import 'package:cooking_recipe/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Home extends GetWidget<HomeViewModel> {
-  @override
-  final controller = Get.put(HomeViewModel());
+ 
 
-  Home({Key? key}) : super(key: key);
+  final hcontroller = Get.put(HomeViewModel());
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class Home extends GetWidget<HomeViewModel> {
                     hintText: "Search For Recipe",
                     suffixIcon: IconButton(
                         icon: const Icon(Icons.search), onPressed: () {
-                          Get.to(()=> SearchPage() );
+                          Get.to(()=> SearchPage(search: controller.text,) );
                         }),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -71,10 +71,11 @@ class Home extends GetWidget<HomeViewModel> {
                                     Container(
                                       padding: const EdgeInsets.all(3),
                                       height: 40,
-                                      color: Colors.black.withOpacity(0.5),
+                                      color: Colors.black.withOpacity(0.4),
                                       child: Center(
                                         child: Text(
                                           data.hits![i].label.toString(),
+                                          style: const TextStyle(color: Colors.white)
                                         ),
                                       ),
                                     ),
@@ -86,6 +87,7 @@ class Home extends GetWidget<HomeViewModel> {
                                         child: Text(
                                           "Source : " +
                                               data.hits![i].source.toString(),
+                                               style: const TextStyle(color: Colors.white)
                                         ),
                                       ),
                                     )
