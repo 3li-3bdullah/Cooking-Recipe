@@ -14,18 +14,23 @@ class Home extends GetWidget<HomeViewModel> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text('Cooking Recipe'),
-      ),
-      body: SingleChildScrollView(
-      child: Column(
-        children: [
+        appBar: AppBar(
+          elevation: 0,
+          title: const Text('Cooking Recipe'),
+        ),
+        body: SingleChildScrollView(
+            child: Column(children: [
           Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: TextField(
-                decoration: InputDecoration(prefixIcon:  IconButton(icon: const Icon(Icons.search), onPressed:(){} ),
+                onChanged: (value) {
+                  controller.text = value;
+                },
+                decoration: InputDecoration(
+                    hintText: "Search For Recipe",
+                    prefixIcon: IconButton(
+                        icon: const Icon(Icons.search), onPressed: () {}),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
                     filled: true,
@@ -48,7 +53,7 @@ class Home extends GetWidget<HomeViewModel> {
                         itemBuilder: (context, i) {
                           return InkWell(
                             onTap: () {
-                              Get.to(()=> DetailsPage(url: controller.url) );
+                              Get.to(() => DetailsPage(url: controller.url));
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -90,6 +95,6 @@ class Home extends GetWidget<HomeViewModel> {
                   return const Center(child: CircularProgressIndicator());
                 }
               }),
-         ])) );
+        ])));
   }
 }
