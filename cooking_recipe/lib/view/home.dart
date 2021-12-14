@@ -1,5 +1,6 @@
 import 'package:cooking_recipe/model/product.dart';
-import 'package:cooking_recipe/view/widgets/details_page.dart';
+import 'package:cooking_recipe/view/home_widgets/details_page.dart';
+import 'package:cooking_recipe/view/home_widgets/search_page.dart';
 import 'package:cooking_recipe/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,8 +30,10 @@ class Home extends GetWidget<HomeViewModel> {
                 },
                 decoration: InputDecoration(
                     hintText: "Search For Recipe",
-                    prefixIcon: IconButton(
-                        icon: const Icon(Icons.search), onPressed: () {}),
+                    suffixIcon: IconButton(
+                        icon: const Icon(Icons.search), onPressed: () {
+                          Get.to(()=> SearchPage() );
+                        }),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
                     filled: true,
