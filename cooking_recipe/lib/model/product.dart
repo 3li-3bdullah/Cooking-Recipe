@@ -1,12 +1,12 @@
 class Product {
-  String? uri;
+  String? url;
   String? label;
   String? image;
   String? source;
-  Product({this.uri, this.label, this.image, this.source});
+  Product({this.url, this.label, this.image, this.source});
 
   Product.fromJson(Map<String, dynamic> json) {
-    uri = json['recipe']['uri'];
+    url = json['recipe']['url'];
     label = json['recipe']['label'];
     image = json['recipe']['image'];
     source = json['recipe']['source'];
