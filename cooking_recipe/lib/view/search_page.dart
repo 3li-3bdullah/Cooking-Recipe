@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SearchPage extends GetWidget<SearchPageViewModel> {
-  
   SearchPageViewModel scontroller = Get.put(SearchPageViewModel());
 
   String? search;
@@ -15,9 +14,18 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          elevation: 0,
-          title: const Text('Cooking Recipe'),
-        ),
+            elevation: 0,
+            title: RichText(
+                text:  TextSpan(
+                  style: const TextStyle(fontWeight:FontWeight.bold),
+                  children: [
+            const  TextSpan(
+                  text: "Cooking",
+                  style: TextStyle(fontSize: 20, color: Colors.white)),
+              TextSpan(
+                  text: "Recipes",
+                  style: TextStyle(fontSize: 18, color: Colors.orange.shade400)),
+            ]))),
         body: FutureBuilder(
             future: controller.fetchData(search!),
             builder: (context, AsyncSnapshot<Model> snapshot) {
@@ -33,7 +41,8 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                     itemBuilder: (context, i) {
                       return InkWell(
                         onTap: () {
-                          Get.to(() => DetailsPage(url: data.hits![i].url.toString()));
+                          Get.to(() =>
+                              DetailsPage(url: data.hits![i].url.toString()));
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -42,8 +51,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                                       data.hits![i].image.toString()),
                                   fit: BoxFit.fill)),
                           child: Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
                                   padding: const EdgeInsets.all(3),
