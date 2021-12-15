@@ -7,13 +7,17 @@ class SearchPageViewModel extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchData();
+    fetchData(cSearch!);
   }
 
-  late final String text;
-  final Uri url = Uri.parse("https://api.edamam.com/search?q=chicken&app_id=1bd5ac26&app_key=9cdd5f2c583a0ea0f1ad4a95773bc8f3&from=0&to=100&calories=591-722&health=alcohol-free");
-  Future<Model> fetchData() async {
-    final response = await http.get(url);
+  String? cSearch;
+  late String url;
+
+  Future<Model> fetchData(String cSearch) async {
+    url =
+        "https://api.edamam.com/search?q=$cSearch&app_id=1bd5ac26&app_key=9cdd5f2c583a0ea0f1ad4a95773bc8f3&from=0&to=100&calories=591-722&health=alcohol-free";
+    
+    final response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       try {
