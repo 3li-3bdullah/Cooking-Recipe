@@ -14,7 +14,17 @@ class Home extends GetWidget<HomeViewModel> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title: const Text('Cooking Recipe'),
+          title:RichText(
+                text:  TextSpan(
+                  style: const TextStyle(fontWeight:FontWeight.bold),
+                  children: [
+            const  TextSpan(
+                  text: "Cooking",
+                  style: TextStyle(fontSize: 20, color: Colors.white)),
+              TextSpan(
+                  text: "Recipes",
+                  style: TextStyle(fontSize: 18, color: Colors.orange.shade400)),
+            ])),
         ),
         body: SingleChildScrollView(
             child: Column(children: [
