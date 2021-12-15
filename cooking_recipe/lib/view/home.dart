@@ -1,15 +1,12 @@
 import 'package:cooking_recipe/model/product.dart';
-import 'package:cooking_recipe/view/home_widgets/details_page.dart';
+import 'package:cooking_recipe/view/details_page.dart';
 import 'package:cooking_recipe/view/search_page.dart';
 import 'package:cooking_recipe/view_model/home_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Home extends GetWidget<HomeViewModel> {
- 
-
   final hcontroller = Get.put(HomeViewModel());
-
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +28,11 @@ class Home extends GetWidget<HomeViewModel> {
                 decoration: InputDecoration(
                     hintText: "Search For Recipe",
                     suffixIcon: IconButton(
-                        icon: const Icon(Icons.search), onPressed: () {
-                          Get.to(()=> SearchPage(search: controller.text,) );
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          Get.to(() => SearchPage(
+                                search: controller.text,
+                              ));
                         }),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20)),
@@ -56,7 +56,8 @@ class Home extends GetWidget<HomeViewModel> {
                         itemBuilder: (context, i) {
                           return InkWell(
                             onTap: () {
-                              Get.to(() => DetailsPage(url: controller.url));
+                              Get.to(() => DetailsPage(
+                                  url: data.hits![i].url.toString()));
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -74,9 +75,9 @@ class Home extends GetWidget<HomeViewModel> {
                                       color: Colors.black.withOpacity(0.4),
                                       child: Center(
                                         child: Text(
-                                          data.hits![i].label.toString(),
-                                          style: const TextStyle(color: Colors.white)
-                                        ),
+                                            data.hits![i].label.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.white)),
                                       ),
                                     ),
                                     Container(
@@ -85,10 +86,10 @@ class Home extends GetWidget<HomeViewModel> {
                                       color: Colors.black.withOpacity(0.5),
                                       child: Center(
                                         child: Text(
-                                          "Source : " +
-                                              data.hits![i].source.toString(),
-                                               style: const TextStyle(color: Colors.white)
-                                        ),
+                                            "Source : " +
+                                                data.hits![i].source.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.white)),
                                       ),
                                     )
                                   ]),
