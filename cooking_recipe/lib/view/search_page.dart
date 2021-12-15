@@ -7,8 +7,8 @@ import 'package:get/get.dart';
 class SearchPage extends GetWidget<SearchPageViewModel> {
   SearchPageViewModel scontroller = Get.put(SearchPageViewModel());
 
-  String? search;
-  SearchPage({this.search});
+  String search;
+  SearchPage({required this.search});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                   style: TextStyle(fontSize: 18, color: Colors.orange.shade400)),
             ]))),
         body: FutureBuilder(
-            future: controller.fetchData(search!),
+            future: controller.fetchData(search),
             builder: (context, AsyncSnapshot<Model> snapshot) {
               Model? data = snapshot.data;
               if (snapshot.hasData) {
@@ -79,7 +79,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                       );
                     });
               } else {
-                return const Center(child: CircularProgressIndicator());
+                return Center(child: CircularProgressIndicator(color:Colors.orange.shade400));
               }
             }));
   }
