@@ -35,20 +35,26 @@ class Home extends GetWidget<HomeViewModel> {
                           color: Colors.orange.shade400,
                           fontWeight: FontWeight.bold,
                           fontSize: 20),
+                          content: Row(children: const  [
+                             CircleAvatar(backgroundImage: AssetImage('assets/images/which.jpg'),),
+                            Expanded(child: Text('Sir, what mode do you like :' , style: TextStyle(fontSize: 17),))
+                          ],),
                       textConfirm: "Light",
                       onConfirm: () {
                         Get.changeTheme(ThemeData.light());
                         Get.back();
                       },
                       textCancel: "Dark",
-                      onCancel: (){
+                      onCancel: () {
                         Get.changeTheme(ThemeData.dark());
                         Get.back();
                       },
-                      buttonColor: Colors.orange.shade400
-                      );
+                      buttonColor: Colors.orange.shade400);
                 },
-                icon:  Icon(Icons.wb_sunny,color: Colors.orange.shade400,))
+                icon: Icon(
+                  Icons.wb_sunny,
+                  color: Colors.orange.shade400,
+                ))
           ],
         ),
         body: SingleChildScrollView(
@@ -59,23 +65,35 @@ class Home extends GetWidget<HomeViewModel> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 margin:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: TextField(
-                  onChanged: (value) {
-                    controller.text.value = value.trim();
-                  },
-                  decoration: InputDecoration(
-                      hintText: "Search For Recipe",
-                      suffixIcon: IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            Get.to(() => SearchPage(
-                                  search: controller.text.value,
-                                ));
-                          }),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      filled: true,
-                      fillColor: Colors.orange.shade300),
+                child: Row(
+                  children: [
+                    
+                    Expanded(
+                      child: TextField(
+                        onChanged: (value) {
+                          controller.text.value = value.trim();
+                        },
+                        decoration: InputDecoration(
+                            hintText: "Search",
+                            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                            
+                            suffixIcon: IconButton(
+                                icon: const Icon(Icons.search),
+                                onPressed: () {
+                                  Get.to(() => SearchPage(
+                                        search: controller.text.value,
+                                      ));
+                                }),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                                focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),borderSide:const BorderSide(color: Colors.green)  
+                                ),
+                            filled: true,
+                            fillColor: Colors.orange.shade300),
+                      ),
+                    ),
+                  ],
                 )),
           ),
           FutureBuilder(
