@@ -18,9 +18,9 @@ class Home extends GetWidget<HomeViewModel> {
               text: TextSpan(
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
-                const TextSpan(
+                 TextSpan(
                     text: "Cooking",
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style: TextStyle(fontSize: 20)),
                 TextSpan(
                     text: "Recipes",
                     style:
@@ -37,7 +37,7 @@ class Home extends GetWidget<HomeViewModel> {
                           fontSize: 20),
                           content: Row(children: const  [
                              CircleAvatar(backgroundImage: AssetImage('assets/images/which.jpg'),),
-                            Expanded(child: Text('Sir, what mode do you like :' , style: TextStyle(fontSize: 17),))
+                            Expanded(child: Text(' Sir, what mode do you like :' , style: TextStyle(fontSize: 17),))
                           ],),
                       textConfirm: "Light",
                       onConfirm: () {
@@ -60,49 +60,40 @@ class Home extends GetWidget<HomeViewModel> {
         body: SingleChildScrollView(
             child: Column(children: [
           GetBuilder<HomeViewModel>(
-            builder: (controller) => Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Row(
-                  children: [
-                  const CircleAvatar(
-                          backgroundImage: AssetImage('assets/images/search.png'),
-                        ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          TextField(
-                            onChanged: (value) {
-                              controller.text.value = value.trim();
-                            },
-                            decoration: InputDecoration(
-                                hintText: "Search",
-                                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                                
-                                suffixIcon: IconButton(
-                                    icon: const Icon(Icons.search),
-                                    onPressed: () {
-                                      Get.to(() => SearchPage(
-                                            search: controller.text.value,
-                                          ));
-                                    }),
-                                border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                    focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(20),borderSide:const BorderSide(color: Colors.green)  
-                                    ),
-                                filled: true,
-                                fillColor: Colors.orange.shade300),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
+            builder: (controller) => Card(
+              child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      child:ListTile(
+                        leading: CircleAvatar(backgroundImage: AssetImage('assets/images/search.png'),),
+                        title:  TextField(
+                              onChanged: (value) {
+                                controller.text.value = value.trim();
+                              },
+                              decoration: InputDecoration(
+                                  hintText: "Search",
+                                  hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                                  
+                                  suffixIcon: IconButton(
+                                      icon: const Icon(Icons.search),
+                                      onPressed: () {
+                                        Get.to(() => SearchPage(
+                                              search: controller.text.value,
+                                            ));
+                                      }),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20)),
+                                      focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(20),borderSide:const BorderSide(color: Colors.green)  
+                                      ),
+                                  filled: true,
+                                  fillColor: Colors.orange.shade300),
+                            ),
+                      )
+                  ),
+            ),
           ),
           FutureBuilder(
               future: controller.fetchData(),
