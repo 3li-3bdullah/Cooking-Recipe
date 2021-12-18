@@ -27,8 +27,19 @@ class HomeViewModel extends GetxController {
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),
-            
-            );
+            messageText: Row(
+              children: [
+                Container(
+                  height: 40,
+                  width:40,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        image: const DecorationImage(
+                            image: AssetImage('assets/images/snakbar.jpg'),
+                            fit: BoxFit.fill))),
+                          const  Expanded(child: Text('Look for your favorite food to make it.'))
+              ],
+            ));
       } catch (e) {
         Get.snackbar('Errors', e.toString());
       }
