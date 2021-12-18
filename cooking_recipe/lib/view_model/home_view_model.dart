@@ -27,10 +27,10 @@ class HomeViewModel extends GetxController {
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
             ),colorText: Colors.orange.shade400,
-            messageText:const Expanded(child:  Text('Look for your favorite food to make it.')),
+            messageText:Text('Look for your favorite food to make it.'),
            icon: IconButton(
           onPressed: () {},
-          icon: Image.asset('assets/images/snakbar.jpg'),
+          icon: CircleAvatar(backgroundImage: AssetImage('assets/images/snakbar.jpg'),),
         )
             );
         
