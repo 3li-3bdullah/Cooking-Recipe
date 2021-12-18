@@ -17,7 +17,7 @@ class HomeViewModel extends GetxController {
 
     if (response.statusCode == 200) {
       try {
-        Get.snackbar('Cooking Recipe', 'Have a beautiful day .');
+        Get.snackbar('Cooking Recipes', 'Good luck and wish you enjoy with most beautiful cooking recipes.');
       } catch (e) {
         Get.snackbar('Errors', e.toString());
       }
