@@ -28,27 +28,28 @@ class Home extends GetWidget<HomeViewModel> {
         ),
         body: SingleChildScrollView(
             child: Column(children: [
-          Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              child: TextField(
-                onChanged: (value) {
-                  controller.text = value;
-                },
-                decoration: InputDecoration(
-                    hintText: "Search For Recipe",
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.search),
-                        onPressed: () {
-                          Get.to(() => SearchPage(
-                                search: controller.text,
-                              ));
-                        }),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    filled: true,
-                    fillColor: Colors.orange.shade300),
-              )),
+          GetBuilder<HomeViewModel>(builder:(controller)=> Container(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: TextField(
+                  onChanged: (value) {
+                    controller.text.value = value.trim();
+                  },
+                  decoration: InputDecoration(
+                      hintText: "Search For Recipe",
+                      suffixIcon: IconButton(
+                          icon: const Icon(Icons.search),
+                          onPressed: () {
+                            Get.to(() => SearchPage(
+                                  search: controller.text.value,
+                                ));
+                          }),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      filled: true,
+                      fillColor: Colors.orange.shade300),
+                )),
+          ),
           FutureBuilder(
               future: controller.fetchData(),
               builder: (context, AsyncSnapshot<Model> snapshot) {
