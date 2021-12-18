@@ -1,4 +1,5 @@
 import 'package:cooking_recipe/model/product.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -14,7 +15,20 @@ class SearchPageViewModel extends GetxController {
 
     if (response.statusCode == 200) {
       try {
-        Get.snackbar('Cooking Recipe', 'Have a beautiful day .');
+         Get.snackbar(
+            'Cooking Recipes', 'Hey my friend, my favorite food is chicken. Did you know i am so excited to see your favorite food!',
+            titleText: const Text(
+              'Cooking Recipes',
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),colorText: Colors.orange.shade400,
+            messageText:Text('Hey my friend!, my favorite food is chicken. Did you know i am so excited to see your favorite food!'),
+           icon: IconButton(
+          onPressed: () {},
+          icon: CircleAvatar(backgroundImage: AssetImage('assets/images/snakbar.jpg'),),
+        )
+            );
       } catch (e) {
         Get.snackbar('Errors', e.toString());
       }
