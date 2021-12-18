@@ -14,23 +14,51 @@ class Home extends GetWidget<HomeViewModel> {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
-          title:RichText(
-                text:  TextSpan(
-                  style: const TextStyle(fontWeight:FontWeight.bold),
+          title: RichText(
+              text: TextSpan(
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
-            const  TextSpan(
-                  text: "Cooking",
-                  style: TextStyle(fontSize: 20, color: Colors.white)),
-              TextSpan(
-                  text: "Recipes",
-                  style: TextStyle(fontSize: 18, color: Colors.orange.shade400)),
-            ])),
+                const TextSpan(
+                    text: "Cooking",
+                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                TextSpan(
+                    text: "Recipes",
+                    style:
+                        TextStyle(fontSize: 18, color: Colors.orange.shade400)),
+              ])),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.defaultDialog(
+                      title: "Change Mode",
+                      titleStyle: TextStyle(
+                          color: Colors.orange.shade400,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                      textConfirm: "Light",
+                      onConfirm: () {
+                        Get.changeTheme(ThemeData.light());
+                        Get.back();
+                      },
+                      textCancel: "Dark",
+                      onCancel: (){
+                        Get.changeTheme(ThemeData.dark());
+                        Get.back();
+                      },
+                      buttonColor: Colors.orange.shade400
+                      );
+                },
+                icon:  Icon(Icons.wb_sunny,color: Colors.orange.shade400,))
+          ],
         ),
         body: SingleChildScrollView(
             child: Column(children: [
-          GetBuilder<HomeViewModel>(builder:(controller)=> Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          GetBuilder<HomeViewModel>(
+            builder: (controller) => Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: TextField(
                   onChanged: (value) {
                     controller.text.value = value.trim();
