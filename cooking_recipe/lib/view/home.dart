@@ -67,30 +67,38 @@ class Home extends GetWidget<HomeViewModel> {
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Row(
                   children: [
-                    
+                  const CircleAvatar(
+                          backgroundImage: AssetImage('assets/images/search.png'),
+                        ),
                     Expanded(
-                      child: TextField(
-                        onChanged: (value) {
-                          controller.text.value = value.trim();
-                        },
-                        decoration: InputDecoration(
-                            hintText: "Search",
-                            hintStyle: const TextStyle(fontWeight: FontWeight.bold),
-                            
-                            suffixIcon: IconButton(
-                                icon: const Icon(Icons.search),
-                                onPressed: () {
-                                  Get.to(() => SearchPage(
-                                        search: controller.text.value,
-                                      ));
-                                }),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                                focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),borderSide:const BorderSide(color: Colors.green)  
-                                ),
-                            filled: true,
-                            fillColor: Colors.orange.shade300),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          TextField(
+                            onChanged: (value) {
+                              controller.text.value = value.trim();
+                            },
+                            decoration: InputDecoration(
+                                hintText: "Search",
+                                hintStyle: const TextStyle(fontWeight: FontWeight.bold),
+                                
+                                suffixIcon: IconButton(
+                                    icon: const Icon(Icons.search),
+                                    onPressed: () {
+                                      Get.to(() => SearchPage(
+                                            search: controller.text.value,
+                                          ));
+                                    }),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                    focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(20),borderSide:const BorderSide(color: Colors.green)  
+                                    ),
+                                filled: true,
+                                fillColor: Colors.orange.shade300),
+                          ),
+                        ],
                       ),
                     ),
                   ],
