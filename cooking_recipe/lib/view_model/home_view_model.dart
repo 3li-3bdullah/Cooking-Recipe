@@ -30,7 +30,7 @@ class HomeViewModel extends GetxController {
             messageText:Text('Look for your favorite food to make it.'),
            icon: IconButton(
           onPressed: () {},
-          icon: CircleAvatar(backgroundImage: AssetImage('assets/images/snakbar.jpg'),),
+          icon: CircleAvatar(backgroundImage: AssetImage('assets/images/snack.jpg'),),
         )
             );
         
