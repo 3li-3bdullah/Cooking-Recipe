@@ -19,27 +19,21 @@ class HomeViewModel extends GetxController {
 
     if (response.statusCode == 200) {
       try {
-        Get.snackbar('Cooking Recipes', 'Good luck',
-            titleText: Text(
+        Get.snackbar(
+            'Cooking Recipes', 'Look for your favorite food to make it.',
+            titleText: const Text(
               'Cooking Recipes',
               style: TextStyle(
-                  color: Colors.orange.shade400,
                   fontSize: 18,
                   fontWeight: FontWeight.bold),
-            ),
-            messageText: Row(
-              children: [
-                Container(
-                  height: 40,
-                  width:40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        image: const DecorationImage(
-                            image: AssetImage('assets/images/snakbar.jpg'),
-                            fit: BoxFit.fill))),
-                          const  Expanded(child: Text('Look for your favorite food to make it.'))
-              ],
-            ));
+            ),colorText: Colors.orange.shade400,
+            messageText:const Expanded(child:  Text('Look for your favorite food to make it.')),
+           icon: IconButton(
+          onPressed: () {},
+          icon: Image.asset('assets/images/snakbar.jpg'),
+        )
+            );
+        
       } catch (e) {
         Get.snackbar('Errors', e.toString());
       }
