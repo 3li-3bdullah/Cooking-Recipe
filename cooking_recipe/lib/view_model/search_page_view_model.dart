@@ -27,7 +27,7 @@ class SearchPageViewModel extends GetxController {
            icon: IconButton(
           onPressed: () {},
           icon: CircleAvatar(backgroundImage: AssetImage('assets/images/snakbar.jpg'),),
-        )
+        ),duration: Duration(seconds: 3)
             );
       } catch (e) {
         Get.snackbar('Errors', e.toString());
