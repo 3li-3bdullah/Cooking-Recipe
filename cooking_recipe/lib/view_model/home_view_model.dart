@@ -12,6 +12,7 @@ class HomeViewModel extends GetxController {
   }
 
   RxString text = "chicken".obs;
+  RxBool mode =  true.obs;
 
   Future<Model> fetchData() async {
     final response = await http.get(Uri.parse(
