@@ -16,16 +16,17 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
         appBar: AppBar(
             elevation: 0,
             title: RichText(
-                text:  TextSpan(
-                  style: const TextStyle(fontWeight:FontWeight.bold),
-                  children: [
-            const  TextSpan(
-                  text: "Cooking",
-                  style: TextStyle(fontSize: 20, color: Colors.white)),
-              TextSpan(
-                  text: "Recipes",
-                  style: TextStyle(fontSize: 18, color: Colors.orange.shade400)),
-            ]))),
+                text: TextSpan(
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                    children: [
+                  const TextSpan(
+                      text: "Cooking",
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                  TextSpan(
+                      text: "Recipes",
+                      style: TextStyle(
+                          fontSize: 18, color: Colors.orange.shade400)),
+                ]))),
         body: FutureBuilder(
             future: controller.fetchData(search),
             builder: (context, AsyncSnapshot<Model> snapshot) {
@@ -60,6 +61,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                                   child: Center(
                                     child: Text(
                                       data.hits![i].label.toString(),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 ),
@@ -71,6 +73,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                                     child: Text(
                                       "Source : " +
                                           data.hits![i].source.toString(),
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                   ),
                                 )
@@ -79,8 +82,10 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                       );
                     });
               } else {
-                return Center(child: CircularProgressIndicator(color:Colors.orange.shade400));
-              }
+                return Center(
+                    child: CircularProgressIndicator(
+                        color: Colors.orange.shade400));
+              } 
             }));
   }
 }
