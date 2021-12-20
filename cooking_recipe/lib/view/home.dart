@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Home extends GetWidget<HomeViewModel> {
-  final hcontroller = Get.put(HomeViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +68,7 @@ class Home extends GetWidget<HomeViewModel> {
         body: SingleChildScrollView(
             child: Column(children: [
           GetBuilder<HomeViewModel>(
+            init:HomeViewModel(),
             builder: (controller) => Card(
               child: Container(
                   padding:
@@ -92,7 +92,7 @@ class Home extends GetWidget<HomeViewModel> {
                               onPressed: () {
                                 Get.to(() => SearchPage(
                                       search: controller.text.value,
-                                    ));
+                                    ),transition: Transition.zoom);
                               }),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20)),
