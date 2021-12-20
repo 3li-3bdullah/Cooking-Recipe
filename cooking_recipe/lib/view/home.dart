@@ -61,7 +61,7 @@ class Home extends GetWidget<HomeViewModel> {
                       buttonColor: Colors.orange.shade400);
                 },
                 icon: Icon(
-                  Icons.wb_sunny,
+                controller.mode.value ?  Icons.dark_mode : Icons.wb_sunny,
                   color: Colors.orange.shade400,
                 ))
           ],
