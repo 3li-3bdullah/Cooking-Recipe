@@ -24,51 +24,53 @@ class Home extends GetWidget<HomeViewModel> {
                         TextStyle(fontSize: 18, color: Colors.orange.shade400)),
               ])),
           actions: [
-            IconButton(
-                onPressed: () {
-                  Get.defaultDialog(
-                      title: "Change Mode",
-                      titleStyle: TextStyle(
-                          color: Colors.orange.shade400,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                      content: Row(
-                        children: const [
-                          CircleAvatar(
-                            backgroundImage:
-                                AssetImage('assets/images/which.jpg'),
-                          ),
-                          Expanded(
-                              child: Text(
-                            ' Sir, what mode do you like :',
-                            style: TextStyle(fontSize: 17),
-                          ))
-                        ],
-                      ),
-                      textConfirm: "Light",
-                      onConfirm: () {
-                        Get.changeTheme(ThemeData.light());
-                        controller.mode.value = false;
-                       return Get.back();
-                      },
-                      textCancel: "Dark",
-                      onCancel: () {
-                        Get.changeTheme(ThemeData.dark());
-                        controller.mode.value = true;
-                       return Get.back();
-                      },
-                      buttonColor: Colors.orange.shade400);
-                },
-                icon: Icon(
-                controller.mode.value ?  Icons.dark_mode : Icons.wb_sunny,
-                  color: Colors.orange.shade400,
-                ))
+            Obx(
+              () => IconButton(
+                  onPressed: () {
+                    Get.defaultDialog(
+                        title: "Change Mode",
+                        titleStyle: TextStyle(
+                            color: Colors.orange.shade400,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                        content: Row(
+                          children: const [
+                            CircleAvatar(
+                              backgroundImage:
+                                  AssetImage('assets/images/which.jpg'),
+                            ),
+                            Expanded(
+                                child: Text(
+                              " Sir, what mode do you like :",
+                              style: TextStyle(fontSize: 17),
+                            ))
+                          ],
+                        ),
+                        textConfirm: "Light",
+                        onConfirm: () {
+                          Get.changeTheme(ThemeData.light());
+                          controller.mode.value = false;
+                         return Get.back();
+                        },
+                        textCancel: "Dark",
+                        onCancel: () {
+                          Get.changeTheme(ThemeData.dark());
+                          controller.mode.value = true;
+                         return Get.back();
+                        },
+                        buttonColor: Colors.orange.shade400);
+                  },
+                  icon: Icon(
+                  controller.mode.value ?  Icons.dark_mode : Icons.wb_sunny,
+                    color: Colors.orange.shade400,
+                  )),
+            )
           ],
         ),
         body: SingleChildScrollView(
             child: Column(children: [
           GetBuilder<HomeViewModel>(
-            init:HomeViewModel(),
+            // init:HomeViewModel(),
             builder: (controller) => Card(
               child: Container(
                   padding:
