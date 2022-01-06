@@ -4,6 +4,7 @@ import 'package:cooking_recipe/view_model/search_page_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: must_be_immutable
 class SearchPage extends GetWidget<SearchPageViewModel> {
   SearchPageViewModel scontroller = Get.put(SearchPageViewModel());
 
