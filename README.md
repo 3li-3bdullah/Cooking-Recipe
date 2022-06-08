@@ -1,8 +1,8 @@
 # Cooking-Recipes
 Cooking Recipes shows you most recipes ,
-so you will able to do your favorite food by your self :) .
+So you will able to do your favorite food by your self :) .
 
-## Packages i am using:
+## Packages i have used:
 - http: ^0.13.4
 - get: ^4.5.1
 - webview_flutter: ^3.0.0
