@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class Home extends GetWidget<HomeViewModel> {
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -17,7 +16,13 @@ class Home extends GetWidget<HomeViewModel> {
               text: TextSpan(
                   style: const TextStyle(fontWeight: FontWeight.bold),
                   children: [
-                TextSpan(text: "Cooking", style: TextStyle(fontSize: 20)),
+                TextSpan(
+                    text: "Cooking",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: controller.mode.value
+                            ? Colors.white
+                            : Colors.black)),
                 TextSpan(
                     text: "Recipes",
                     style:
@@ -41,7 +46,7 @@ class Home extends GetWidget<HomeViewModel> {
                             ),
                             Expanded(
                                 child: Text(
-                              " Sir, what mode do you like :",
+                              " Sir, what mode do you like:",
                               style: TextStyle(fontSize: 17),
                             ))
                           ],
@@ -50,18 +55,18 @@ class Home extends GetWidget<HomeViewModel> {
                         onConfirm: () {
                           Get.changeTheme(ThemeData.light());
                           controller.mode.value = false;
-                         return Get.back();
+                          return Get.back();
                         },
                         textCancel: "Dark",
                         onCancel: () {
                           Get.changeTheme(ThemeData.dark());
                           controller.mode.value = true;
-                         return Get.back();
+                          return Get.back();
                         },
                         buttonColor: Colors.orange.shade400);
                   },
                   icon: Icon(
-                  controller.mode.value ?  Icons.dark_mode : Icons.wb_sunny,
+                    controller.mode.value ? Icons.dark_mode : Icons.wb_sunny,
                     color: Colors.orange.shade400,
                   )),
             )
@@ -74,36 +79,43 @@ class Home extends GetWidget<HomeViewModel> {
             builder: (controller) => Card(
               child: Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundImage: AssetImage('assets/images/search.png'),
                     ),
-                    title: TextField(
-                      onChanged: (value) {
-                        controller.text.value = value.trim();
-                      },
-                      decoration: InputDecoration(
-                          hintText: "Search",
-                          hintStyle:
-                              const TextStyle(fontWeight: FontWeight.bold),
-                          suffixIcon: IconButton(
-                              icon: const Icon(Icons.search),
-                              onPressed: () {
-                                Get.to(() => SearchPage(
-                                      search: controller.text.value,
-                                    ),transition: Transition.zoom);
-                              }),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  const BorderSide(color: Colors.green)),
-                          filled: true,
-                          fillColor: Colors.orange.shade300),
+                    title: SizedBox(
+                      height: 50,
+                      child: TextField(
+                        onChanged: (value) {
+                          controller.text.value = value.trim();
+                        },
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                        decoration: InputDecoration(
+                            hintText: "Search",
+                            hintStyle: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
+                                color: Colors.black),
+                            suffixIcon: IconButton(
+                                icon: const Icon(Icons.search),
+                                onPressed: () {
+                                  Get.to(
+                                      () => SearchPage(
+                                            search: controller.text.value,
+                                          ),
+                                      transition: Transition.zoom);
+                                }),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                borderSide:
+                                    const BorderSide(color: Colors.green)),
+                            filled: true,
+                            fillColor: Colors.grey.shade300),
+                      ),
                     ),
                   )),
             ),
@@ -113,7 +125,8 @@ class Home extends GetWidget<HomeViewModel> {
               builder: (context, AsyncSnapshot<Model> snapshot) {
                 Model? data = snapshot.data;
                 if (snapshot.hasData) {
-                  return SizedBox(
+                  return Container(
+                    margin: const EdgeInsets.only(top: 10),
                     height: size.height,
                     child: GridView.builder(
                         gridDelegate:
@@ -128,46 +141,57 @@ class Home extends GetWidget<HomeViewModel> {
                               Get.to(() => DetailsPage(
                                   url: data.hits![i].url.toString()));
                             },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          data.hits![i].image.toString()),
-                                      fit: BoxFit.fill)),
-                              child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.all(3),
-                                      height: 40,
-                                      color: Colors.black.withOpacity(0.4),
-                                      child: Center(
-                                        child: Text(
-                                            data.hits![i].label.toString(),
-                                            style: const TextStyle(
-                                                color: Colors.white)),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            data.hits![i].image.toString()),
+                                        fit: BoxFit.fill)),
+                                child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(3),
+                                        height: 50,
+                                        color: Colors.black.withOpacity(0.4),
+                                        child: Center(
+                                          child: Text(
+                                              data.hits![i].label.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white)),
+                                        ),
                                       ),
-                                    ),
-                                    Container(
-                                      padding: const EdgeInsets.all(3),
-                                      height: 40,
-                                      color: Colors.black.withOpacity(0.5),
-                                      child: Center(
-                                        child: Text(
-                                            "Source : " +
-                                                data.hits![i].source.toString(),
-                                            style: const TextStyle(
-                                                color: Colors.white)),
-                                      ),
-                                    )
-                                  ]),
+                                      Container(
+                                        padding: const EdgeInsets.all(3),
+                                        height: 40,
+                                        color: Colors.black.withOpacity(0.5),
+                                        child: Center(
+                                          child: Text(
+                                              "Source : " +
+                                                  data.hits![i].source
+                                                      .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white)),
+                                        ),
+                                      )
+                                    ]),
+                              ),
                             ),
                           );
                         }),
                   );
                 } else {
-                  return Center(child: CircularProgressIndicator(color: Colors.orange.shade400,));
+                  return SizedBox(
+                    height: Get.height * 0.7,
+                    width: Get.width,
+                    child: Center(
+                        child: CircularProgressIndicator(
+                      color: Colors.orange.shade400,
+                    )),
+                  );
                 }
               }),
         ])));
