@@ -94,6 +94,13 @@ class Home extends GetWidget<HomeViewModel> {
                           controller.text.value = value.trim();
                         },
                         style: TextStyle(color: Colors.black, fontSize: 14),
+                        onSubmitted: (value) {
+                          Get.to(
+                              () => SearchPage(
+                                    search: controller.text.value,
+                                  ),
+                              transition: Transition.zoom);
+                        },
                         decoration: InputDecoration(
                             hintText: "Search",
                             hintStyle: const TextStyle(
@@ -154,7 +161,7 @@ class Home extends GetWidget<HomeViewModel> {
                                           "assets/images/logo.png");
                                     },
                                     errorWidget: (context, url, error) {
-                                       return Image.asset(
+                                      return Image.asset(
                                           "assets/images/logo.png");
                                     },
                                   ),
