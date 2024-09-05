@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cooking_recipe/model/product.dart';
 import 'package:cooking_recipe/view/details_page.dart';
 import 'package:cooking_recipe/view/search_page.dart';
@@ -20,57 +21,58 @@ class Home extends GetWidget<HomeViewModel> {
                     text: "Cooking",
                     style: TextStyle(
                         fontSize: 20,
-                        color: controller.mode.value
-                            ? Colors.white
-                            : Colors.black)),
+                        color:
+                            // controller.mode.value
+                            //  ? Colors.white
+                            Colors.black)),
                 TextSpan(
                     text: "Recipes",
                     style:
                         TextStyle(fontSize: 18, color: Colors.orange.shade400)),
               ])),
-          actions: [
-            Obx(
-              () => IconButton(
-                  onPressed: () {
-                    Get.defaultDialog(
-                        title: "Change Mode",
-                        titleStyle: TextStyle(
-                            color: Colors.orange.shade400,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                        content: Row(
-                          children: const [
-                            CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/images/which.jpg'),
-                            ),
-                            Expanded(
-                                child: Text(
-                              " Sir, what mode do you like:",
-                              style: TextStyle(fontSize: 17),
-                            ))
-                          ],
-                        ),
-                        textConfirm: "Light",
-                        onConfirm: () {
-                          Get.changeTheme(ThemeData.light());
-                          controller.mode.value = false;
-                          return Get.back();
-                        },
-                        textCancel: "Dark",
-                        onCancel: () {
-                          Get.changeTheme(ThemeData.dark());
-                          controller.mode.value = true;
-                          return Get.back();
-                        },
-                        buttonColor: Colors.orange.shade400);
-                  },
-                  icon: Icon(
-                    controller.mode.value ? Icons.dark_mode : Icons.wb_sunny,
-                    color: Colors.orange.shade400,
-                  )),
-            )
-          ],
+          // actions: [
+          //   Obx(
+          //     () => IconButton(
+          //         onPressed: () {
+          //           Get.defaultDialog(
+          //               title: "Change Mode",
+          //               titleStyle: TextStyle(
+          //                   color: Colors.orange.shade400,
+          //                   fontWeight: FontWeight.bold,
+          //                   fontSize: 20),
+          //               content: Row(
+          //                 children: const [
+          //                   CircleAvatar(
+          //                     backgroundImage:
+          //                         AssetImage('assets/images/which.jpg'),
+          //                   ),
+          //                   Expanded(
+          //                       child: Text(
+          //                     " Sir, what mode do you like:",
+          //                     style: TextStyle(fontSize: 17),
+          //                   ))
+          //                 ],
+          //               ),
+          //               textConfirm: "Light",
+          //               onConfirm: () {
+          //                 Get.changeTheme(ThemeData.light());
+          //                 controller.mode.value = false;
+          //                 return Get.back();
+          //               },
+          //               textCancel: "Dark",
+          //               onCancel: () {
+          //                 Get.changeTheme(ThemeData.dark());
+          //                 controller.mode.value = true;
+          //                 return Get.back();
+          //               },
+          //               buttonColor: Colors.orange.shade400);
+          //         },
+          //         icon: Icon(
+          //           controller.mode.value ? Icons.dark_mode : Icons.wb_sunny,
+          //           color: Colors.orange.shade400,
+          //         )),
+          //   )
+          // ],
         ),
         body: SingleChildScrollView(
             child: Column(children: [
@@ -143,41 +145,49 @@ class Home extends GetWidget<HomeViewModel> {
                             },
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: NetworkImage(
-                                            data.hits![i].image.toString()),
-                                        fit: BoxFit.fill)),
-                                child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Container(
-                                        padding: const EdgeInsets.all(3),
-                                        height: 50,
-                                        color: Colors.black.withOpacity(0.4),
-                                        child: Center(
-                                          child: Text(
-                                              data.hits![i].label.toString(),
-                                              style: const TextStyle(
-                                                  color: Colors.white)),
+                              child: Stack(
+                                children: [
+                                  CachedNetworkImage(
+                                    imageUrl: data.hits![i].image.toString(),
+                                    placeholder: (context, url) {
+                                      return Image.asset(
+                                          "assets/images/logo.png");
+                                    },
+                                    errorWidget: (context, url, error) {
+                                       return Image.asset(
+                                          "assets/images/logo.png");
+                                    },
+                                  ),
+                                  Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Container(
+                                          padding: const EdgeInsets.all(3),
+                                          height: 50,
+                                          color: Colors.black.withOpacity(0.4),
+                                          child: Center(
+                                            child: Text(
+                                                data.hits![i].label.toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
+                                          ),
                                         ),
-                                      ),
-                                      Container(
-                                        padding: const EdgeInsets.all(3),
-                                        height: 40,
-                                        color: Colors.black.withOpacity(0.5),
-                                        child: Center(
-                                          child: Text(
-                                              "Source : " +
-                                                  data.hits![i].source
-                                                      .toString(),
-                                              style: const TextStyle(
-                                                  color: Colors.white)),
-                                        ),
-                                      )
-                                    ]),
+                                        Container(
+                                          padding: const EdgeInsets.all(3),
+                                          height: 40,
+                                          color: Colors.black.withOpacity(0.5),
+                                          child: Center(
+                                            child: Text(
+                                                "Source : " +
+                                                    data.hits![i].source
+                                                        .toString(),
+                                                style: const TextStyle(
+                                                    color: Colors.white)),
+                                          ),
+                                        )
+                                      ])
+                                ],
                               ),
                             ),
                           );
