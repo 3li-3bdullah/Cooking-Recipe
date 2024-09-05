@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cooking_recipe/model/product.dart';
 import 'package:cooking_recipe/view/details_page.dart';
 import 'package:cooking_recipe/view_model/search_page_view_model.dart';
@@ -22,7 +23,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                     children: [
                   const TextSpan(
                       text: "Cooking",
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                      style: TextStyle(fontSize: 20, color: Colors.black)),
                   TextSpan(
                       text: "Recipes",
                       style: TextStyle(
@@ -46,39 +47,46 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                           Get.to(() =>
                               DetailsPage(url: data.hits![i].url.toString()));
                         },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: NetworkImage(
-                                      data.hits![i].image.toString()),
-                                  fit: BoxFit.fill)),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.all(3),
-                                  height: 40,
-                                  color: Colors.black.withOpacity(0.5),
-                                  child: Center(
-                                    child: Text(
-                                      data.hits![i].label.toString(),
-                                      style: TextStyle(color: Colors.white),
+                        child: Stack(
+                          children: [
+                            CachedNetworkImage(
+                              imageUrl: data.hits![i].image.toString(),
+                              placeholder: (context, url) {
+                                return Image.asset("assets/images/logo.png");
+                              },
+                              errorWidget: (context, url, error) {
+                                return Image.asset("assets/images/logo.png");
+                              },
+                            ),
+                            Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(3),
+                                    height: 50,
+                                    color: Colors.black.withOpacity(0.4),
+                                    child: Center(
+                                      child: Text(
+                                          data.hits![i].label.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white)),
                                     ),
                                   ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.all(3),
-                                  height: 40,
-                                  color: Colors.black.withOpacity(0.5),
-                                  child: Center(
-                                    child: Text(
-                                      "Source : " +
-                                          data.hits![i].source.toString(),
-                                      style: TextStyle(color: Colors.white),
+                                  Container(
+                                    padding: const EdgeInsets.all(3),
+                                    height: 40,
+                                    color: Colors.black.withOpacity(0.5),
+                                    child: Center(
+                                      child: Text(
+                                          "Source : " +
+                                              data.hits![i].source.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white)),
                                     ),
-                                  ),
-                                )
-                              ]),
+                                  )
+                                ])
+                          ],
                         ),
                       );
                     });
@@ -86,7 +94,7 @@ class SearchPage extends GetWidget<SearchPageViewModel> {
                 return Center(
                     child: CircularProgressIndicator(
                         color: Colors.orange.shade400));
-              } 
+              }
             }));
   }
 }
