@@ -99,6 +99,7 @@ class Home extends GetWidget<HomeViewModel> {
                               () => SearchPage(
                                     search: controller.text.value,
                                   ),
+                                  duration: Duration(milliseconds: 100),
                               transition: Transition.zoom);
                         },
                         decoration: InputDecoration(
